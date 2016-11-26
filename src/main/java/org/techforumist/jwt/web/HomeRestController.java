@@ -27,6 +27,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 /**
+ * All web services in this controller will be available for all the users
+ * 
  * @author Sarath Muraleedharan
  *
  */
@@ -35,6 +37,13 @@ public class HomeRestController {
 	@Autowired
 	private AppUserRepository appUserRepository;
 
+	/**
+	 * This method is used for user registration. Note: user registration is not
+	 * require any authentication.
+	 * 
+	 * @param appUser
+	 * @return
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<AppUser> createUser(@RequestBody AppUser appUser) {
 		if (appUserRepository.findOneByUsername(appUser.getUsername()) != null) {
@@ -46,6 +55,12 @@ public class HomeRestController {
 		return new ResponseEntity<AppUser>(appUserRepository.save(appUser), HttpStatus.CREATED);
 	}
 
+	/**
+	 * This method will return the logged user.
+	 * 
+	 * @param principal
+	 * @return Principal java security principal object
+	 */
 	@RequestMapping("/user")
 	public AppUser user(Principal principal) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -53,6 +68,13 @@ public class HomeRestController {
 		return appUserRepository.findOneByUsername(loggedUsername);
 	}
 
+	/**
+	 * @param username
+	 * @param password
+	 * @param response
+	 * @return JSON contains token and user after success authentication.
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> login(@RequestParam String username, @RequestParam String password,
 			HttpServletResponse response) throws IOException {

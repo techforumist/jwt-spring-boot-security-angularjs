@@ -22,6 +22,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
 
+/**
+ * A generic filter for security. I will check token present in the header.
+ * 
+ * @author Sarath Muraleedharan
+ *
+ */
 public class JWTFilter extends GenericFilterBean {
 	private static final String AUTHORIZATION_HEADER = "Authorization";
 	private static final String AUTHORITIES_KEY = "roles";
@@ -32,8 +38,7 @@ public class JWTFilter extends GenericFilterBean {
 		HttpServletRequest request = (HttpServletRequest) req;
 		String authHeader = request.getHeader(AUTHORIZATION_HEADER);
 		if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-			((HttpServletResponse) res).sendError(HttpServletResponse.SC_UNAUTHORIZED,
-					"Missing or invalid Authorization header.");
+			((HttpServletResponse) res).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Authorization header.");
 		} else {
 			try {
 				String token = authHeader.substring(7);
@@ -48,9 +53,15 @@ public class JWTFilter extends GenericFilterBean {
 		}
 	}
 
+	/**
+	 * Method for creating Authentication for Spring Security Context Holder
+	 * from JWT claims
+	 * 
+	 * @param claims
+	 * @return
+	 */
 	public Authentication getAuthentication(Claims claims) {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-		@SuppressWarnings("unchecked")
 		List<String> roles = (List<String>) claims.get(AUTHORITIES_KEY);
 		for (String role : roles) {
 			authorities.add(new SimpleGrantedAuthority(role));

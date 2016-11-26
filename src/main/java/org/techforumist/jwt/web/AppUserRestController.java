@@ -17,6 +17,9 @@ import org.techforumist.jwt.domain.AppUser;
 import org.techforumist.jwt.repository.AppUserRepository;
 
 /**
+ * Rest controller for authentication and user details. All the web services of
+ * this rest controller will be only accessible for ADMIN users only
+ * 
  * @author Sarath Muraleedharan
  *
  */
@@ -26,11 +29,24 @@ public class AppUserRestController {
 	@Autowired
 	private AppUserRepository appUserRepository;
 
+	/**
+	 * Web service for getting all the appUsers in the application.
+	 * 
+	 * @return list of all AppUser
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public List<AppUser> users() {
 		return appUserRepository.findAll();
 	}
 
+	/**
+	 * Web service for getting a user by his ID
+	 * 
+	 * @param id
+	 *            appUser ID
+	 * @return appUser
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
 	public ResponseEntity<AppUser> userById(@PathVariable Long id) {
@@ -42,6 +58,13 @@ public class AppUserRestController {
 		}
 	}
 
+	/**
+	 * Method for deleting a user by his ID
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<AppUser> deleteUser(@PathVariable Long id) {
 		AppUser appUser = appUserRepository.findOne(id);
@@ -58,6 +81,12 @@ public class AppUserRestController {
 
 	}
 
+	/**
+	 * Method for adding a appUser
+	 * 
+	 * @param appUser
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	public ResponseEntity<AppUser> createUser(@RequestBody AppUser appUser) {
@@ -67,6 +96,12 @@ public class AppUserRestController {
 		return new ResponseEntity<AppUser>(appUserRepository.save(appUser), HttpStatus.CREATED);
 	}
 
+	/**
+	 * Method for editing an user details
+	 * 
+	 * @param appUser
+	 * @return modified appUser
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/users", method = RequestMethod.PUT)
 	public AppUser updateUser(@RequestBody AppUser appUser) {
