@@ -1,4 +1,4 @@
-angular.module('AddressBook')
+angular.module('JWTDemoApp')
 // Creating the Angular Controller
 .controller('UsersController', function($http, $scope, AuthService) {
 	var edit = false;

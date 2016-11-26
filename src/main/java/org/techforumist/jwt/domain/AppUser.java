@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 /**
- * Model class for applicaiton user
+ * Model class for application user
  * 
  * @author Sarath Muraleedharan
  *

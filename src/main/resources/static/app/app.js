@@ -1,13 +1,7 @@
-// Creating angular Application with module name "AddressBook"
-angular.module('AddressBook', [ 'ui.router' ])
+// Creating angular JWTDemoApp with module name "JWTDemoApp"
+angular.module('JWTDemoApp', [ 'ui.router' ])
 
-// If we implement the basic security in spring boot then the response will
-// contains the header 'WWW-Authenticate: Basic'. So the browser will popup a
-// alert to get the user credentials. To avoid that we have to set a header in
-// every request we are making using AngularJs.
-.config([ '$httpProvider', function($httpProvider) {
-	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-} ])
+
 // the following method will run at the time of initializing the module. That
 // means it will run only one time.
 .run(function(AuthService, $rootScope, $state) {

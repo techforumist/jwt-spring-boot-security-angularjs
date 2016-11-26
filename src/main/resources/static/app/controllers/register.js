@@ -1,4 +1,4 @@
-angular.module('AddressBook')
+angular.module('JWTDemoApp')
 // Creating the Angular Controller
 .controller('RegisterController', function($http, $scope, AuthService) {
 	$scope.submit = function() {

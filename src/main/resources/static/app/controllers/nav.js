@@ -1,4 +1,4 @@
-angular.module('AddressBook')
+angular.module('JWTDemoApp')
 // Creating the Angular Controller
 .controller('NavController', function($http, $scope, AuthService, $state, $rootScope) {
 	$scope.$on('LoginSuccessful', function() {

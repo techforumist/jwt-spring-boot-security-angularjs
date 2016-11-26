@@ -1,5 +1,8 @@
-angular.module('AddressBook').config(function($stateProvider, $urlRouterProvider) {
+angular.module('JWTDemoApp').config(function($stateProvider, $urlRouterProvider) {
+	
+	// the ui router will redirect if a invalid state has come.
 	$urlRouterProvider.otherwise('/page-not-found');
+	// parent view - navigation state
 	$stateProvider.state('nav', {
 		abstract : true,
 		url : '',
