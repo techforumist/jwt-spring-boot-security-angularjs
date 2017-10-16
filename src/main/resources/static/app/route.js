@@ -25,7 +25,7 @@ angular.module('JWTDemoApp').config(function($stateProvider, $urlRouterProvider)
 		parent : 'nav',
 		url : '/users',
 		data : {
-			role : 'ADMIN'
+			role : 'ROLE_ADMIN'
 		},
 		views : {
 			'content@' : {
