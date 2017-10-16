@@ -28,7 +28,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 /**
  * All web services in this controller will be available for all the users
- * 
+ *
  * @author Sarath Muraleedharan
  *
  */
@@ -40,7 +40,7 @@ public class HomeRestController {
 	/**
 	 * This method is used for user registration. Note: user registration is not
 	 * require any authentication.
-	 * 
+	 *
 	 * @param appUser
 	 * @return
 	 */
@@ -50,14 +50,14 @@ public class HomeRestController {
 			throw new RuntimeException("Username already exist");
 		}
 		List<String> roles = new ArrayList<>();
-		roles.add("USER");
+		roles.add("ROLE_USER");
 		appUser.setRoles(roles);
 		return new ResponseEntity<AppUser>(appUserRepository.save(appUser), HttpStatus.CREATED);
 	}
 
 	/**
 	 * This method will return the logged user.
-	 * 
+	 *
 	 * @param principal
 	 * @return Principal java security principal object
 	 */
